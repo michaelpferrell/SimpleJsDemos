@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Quick Parabola></title>
+    </head>
+    <body>
+        <h1>Some Parabola</h1>
+        <hr>
+        <canvas id="Parab1" height="401" width="401"></canvas>
+        <script type="text/javascript">
+            const canvas = document.getElementById("Parab1");
+            const ctx = canvas.getContext("2d");
+            let xoffset=200;
+            let yoffset = 400;
+            let paramfactor = 1/100;
+            let minx=-200;
+            let maxx=200;
+            ctx.strokeStyle = 'black';
+            ctx.beginPath();
+            ctx.moveTo(xoffset,0);
+            ctx.lineTo(xoffset,yoffset);
+            ctx.moveTo(xoffset+minx,yoffset);
+            ctx.lineTo(xoffset+maxx,yoffset);
+            ctx.stroke();
+            ctx.strokeStyle = 'blue';
+            ctx.beginPath();
+            ctx.moveTo(xoffset+minx, yoffset-(parab(minx)*paramfactor));
+            for(x=minx; x<=maxx; x++)
+            {
+                y = parab(x)*paramfactor;
+                ctx.lineTo(xoffset+x, yoffset-y);
+            }
+            ctx.stroke();
+            
+            function parab(XIn)
+            {
+                return XIn*XIn;
+            }
+        </script>
+    </body>
+</html>
