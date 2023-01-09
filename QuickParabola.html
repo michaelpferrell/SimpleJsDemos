@@ -8,8 +8,32 @@
         <hr>
         <canvas id="Parab1" height="401" width="401"></canvas>
         <script type="text/javascript">
+            class parabola {
+                constructor(AIn, BIn, CIn) {
+                    if (AIn === undefined) {
+                        this.a = 0;
+                    } else {
+                        this.a = AIn;
+                    }
+                    if (BIn === undefined) {
+                        this.b = 0;
+                    } else {
+                        this.b = BIn;
+                    }
+                    if (CIn === undefined) {
+                        this.c = 0;
+                    } else {
+                        this.c = CIn;
+                    }
+                }
+
+                at(XIn) {
+                    return this.a*XIn*XIn + this.b*XIn + this.c;
+                }
+            }
             const canvas = document.getElementById("Parab1");
             const ctx = canvas.getContext("2d");
+            const myParab = new parabola(1);
             let xoffset=200;
             let yoffset = 400;
             let paramfactor = 1/100;
@@ -24,18 +48,13 @@
             ctx.stroke();
             ctx.strokeStyle = 'blue';
             ctx.beginPath();
-            ctx.moveTo(xoffset+minx, yoffset-(parab(minx)*paramfactor));
+            ctx.moveTo(xoffset+minx, yoffset-(myParab.at(minx)*paramfactor));
             for(x=minx; x<=maxx; x++)
             {
-                y = parab(x)*paramfactor;
+                y = myParab.at(x)*paramfactor;
                 ctx.lineTo(xoffset+x, yoffset-y);
             }
             ctx.stroke();
-            
-            function parab(XIn)
-            {
-                return XIn*XIn;
-            }
         </script>
     </body>
 </html>
