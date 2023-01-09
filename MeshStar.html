@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mesh Star</title>
+    </head>
+    <body>
+        <h1>Mesh Star</h1>
+        <hr>
+        <canvas id="cnv" width="1000" height="1000"></canvas>
+        <script type="text/javascript">
+            let cnv = document.getElementById("cnv");
+            let ctx = cnv.getContext("2d");
+            // ctx.fillStyle = "green";
+            // ctx.fillRect(10, 10, 30, 40);
+            let maxx = cnv.width-1, maxy = cnv.height-1, yf=maxy/maxx;
+            let cx=maxx/2, cy=maxy/2;
+            let skip = 40;
+            ctx.strokeStyle = 'black';
+            for (let x=0; x<=cx; x+=skip)
+            {
+                y = x*yf;
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+                ctx.lineTo(cx, cy-y);
+                ctx.lineTo(maxx-x, y);
+                ctx.lineTo(cx+x, cy);
+                ctx.lineTo(maxx-x, maxy-y);
+                ctx.lineTo(cx, cy+y);
+                ctx.lineTo(x, maxy-y);
+                ctx.lineTo(cx-x, cy);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+            }
+            // ctx.fillStyle = "green";
+            // ctx.fillRect(10, 10, 30, 40);
+        </script>
+    </body>
+</html>
