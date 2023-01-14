@@ -10,21 +10,9 @@
         <script type="text/javascript">
             class parabola {
                 constructor(AIn, BIn, CIn) {
-                    if (AIn === undefined) {
-                        this.a = 0;
-                    } else {
-                        this.a = AIn;
-                    }
-                    if (BIn === undefined) {
-                        this.b = 0;
-                    } else {
-                        this.b = BIn;
-                    }
-                    if (CIn === undefined) {
-                        this.c = 0;
-                    } else {
-                        this.c = CIn;
-                    }
+                    this.a = AIn ?? 1;
+                    this.b = BIn ?? 0;
+                    this.c = CIn ?? 0;
                 }
 
                 at(XIn) {
