@@ -47,6 +47,11 @@ class PlottingSurface {
         this.context.lineTo(this.logicalplane.lx2px(xin), this.logicalplane.ly2py(yin));
     }
 
+    drawLine(x1in, y1in, x2in, y2in) {
+        this.moveTo(x1in, y1in);
+        this.lineTo(x2in, y2in);    
+    }
+
     getxr() {
         return this.logicalplane.xr;
     }
@@ -62,10 +67,8 @@ function DrawAxes(psin) {
     const yr = psin.getyr();
     ctx.strokeStyle = 'black';
     ctx.beginPath();
-    psin.moveTo(0, yr.min);
-    psin.lineTo(0, yr.max);
-    psin.moveTo(xr.min, 0);
-    psin.lineTo(xr.max, 0);
+    psin.drawLine(0, yr.min, 0, yr.max);
+    psin.drawLine(xr.min, 0, xr.max, 0);
     ctx.stroke();
 }
 
