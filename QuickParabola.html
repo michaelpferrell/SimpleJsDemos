@@ -39,39 +39,50 @@
                 }
             }
 
+            class PlottingSurface {
+                constructor(logicalplanein, canvasin) {
+                    this.logicalplane = logicalplanein;
+                    this.context = canvasin;
+                }
+
+                moveTo(xin, yin) {
+                    this.context.moveTo(this.logicalplane.lx2px(xin), this.logicalplane.ly2py(yin));
+                }
+
+                lineTo(xin, yin) {
+                    this.context.lineTo(this.logicalplane.lx2px(xin), this.logicalplane.ly2py(yin));
+                }
+            }
+
             const canvas = document.getElementById("Parab1");
             const ctx = canvas.getContext("2d");
             const physicalcoords = { left: 0, top: 0, right: canvas.width-1, bottom: canvas.height-1 };
-            let minx=-20;
-            let maxx=20;
-            let miny = 0;
+            let minx = -20;
+            let maxx = 20;
+            let miny = -100;
             let maxy = 400;
-            let yoffset = 400;
-            const logicalcoords = { left: minx, top: yoffset, right: maxx, bottom: 0 };
+            const logicalcoords = { left: minx, top: maxy, right: maxx, bottom: miny };
             const lp = new LogicalCartesianPlane(logicalcoords, physicalcoords)
+            const ps = new PlottingSurface(lp, ctx);
             const myParab = new parabola(1);
-            let xoffset=200;
-            let paramfactor = 1/100;
 
             //Draw axes
             ctx.strokeStyle = 'black';
             ctx.beginPath();
-            ctx.moveTo(lp.lx2px(0), lp.ly2py(miny));
-            ctx.lineTo(lp.lx2px(0), lp.ly2py(maxy));
-            ctx.moveTo(lp.lx2px(minx), lp.ly2py(0));
-            ctx.lineTo(lp.lx2px(maxx), lp.ly2py(0));
+            ps.moveTo(0, miny);
+            ps.lineTo(0, maxy);
+            ps.moveTo(minx, 0);
+            ps.lineTo(maxx, 0);
             ctx.stroke();
 
             //Draw parabola
             ctx.strokeStyle = 'blue';
             ctx.beginPath();
-            ctx.moveTo(lp.lx2px(minx), lp.ly2py(myParab.at(minx)));
+            ps.moveTo(minx, myParab.at(minx));
             for(x=minx; x<=maxx; x++)
             {
                 y = myParab.at(x);
-                lx = lp.lx2px(x);
-                ly = lp.ly2py(y);
-                ctx.lineTo(lp.lx2px(x), lp.ly2py(y));
+                ps.lineTo(x, y);
             }
             ctx.stroke();
         </script>
