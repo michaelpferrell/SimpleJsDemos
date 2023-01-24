@@ -40,9 +40,9 @@
             }
 
             class PlottingSurface {
-                constructor(logicalplanein, canvasin) {
+                constructor(logicalplanein, contextin) {
                     this.logicalplane = logicalplanein;
-                    this.context = canvasin;
+                    this.context = contextin;
                 }
 
                 moveTo(xin, yin) {
@@ -52,6 +52,19 @@
                 lineTo(xin, yin) {
                     this.context.lineTo(this.logicalplane.lx2px(xin), this.logicalplane.ly2py(yin));
                 }
+            }
+
+            //Draw axes
+            function DrawAxes(psin) {
+                const lc = psin.logicalplane.logicalcoords;
+                const ctx = psin.context;
+                ctx.strokeStyle = 'black';
+                ctx.beginPath();
+                ps.moveTo(0, lc.bottom);
+                ps.lineTo(0, lc.top);
+                ps.moveTo(lc.left, 0);
+                ps.lineTo(lc.right, 0);
+                ctx.stroke();
             }
 
             const canvas = document.getElementById("Parab1");
@@ -66,20 +79,13 @@
             const ps = new PlottingSurface(lp, ctx);
             const myParab = new parabola(1);
 
-            //Draw axes
-            ctx.strokeStyle = 'black';
-            ctx.beginPath();
-            ps.moveTo(0, miny);
-            ps.lineTo(0, maxy);
-            ps.moveTo(minx, 0);
-            ps.lineTo(maxx, 0);
-            ctx.stroke();
+            DrawAxes(ps);
 
             //Draw parabola
             ctx.strokeStyle = 'blue';
             ctx.beginPath();
             ps.moveTo(minx, myParab.at(minx));
-            for(x=minx; x<=maxx; x++)
+            for(var x=minx; x<=maxx; x++)
             {
                 y = myParab.at(x);
                 ps.lineTo(x, y);
