@@ -20,14 +20,18 @@
                 }
             }
 
+            //Cartesian plane with conversion to physical coords, independent of how points are used
             class LogicalCartesianPlane {
                 constructor(logicalcoordsin, physicalcoordsin) {
                     this.logicalcoords = logicalcoordsin;
                     this.physicalcoords = physicalcoordsin;
+                    const lc = this.logicalcoords;
                     this.lx2pxfactor = (this.physicalcoords.right - this.physicalcoords.left)/
-                            (this.logicalcoords.right - this.logicalcoords.left);
+                            (lc.right - lc.left);
                     this.ly2pyfactor = (this.physicalcoords.top - this.physicalcoords.bottom)/
-                            (this.logicalcoords.top - this.logicalcoords.bottom);
+                            (lc.top - lc.bottom);
+                    this.xr = {"min": lc.left, "max": lc.right};
+                    this.yr = {"min": lc.bottom, "max": lc.top};
                 }
 
                 lx2px(lxin) {
@@ -56,14 +60,15 @@
 
             //Draw axes
             function DrawAxes(psin) {
-                const lc = psin.logicalplane.logicalcoords;
                 const ctx = psin.context;
+                const xr = psin.logicalplane.xr;
+                const yr = psin.logicalplane.yr;
                 ctx.strokeStyle = 'black';
                 ctx.beginPath();
-                ps.moveTo(0, lc.bottom);
-                ps.lineTo(0, lc.top);
-                ps.moveTo(lc.left, 0);
-                ps.lineTo(lc.right, 0);
+                psin.moveTo(0, yr.min);
+                psin.lineTo(0, yr.max);
+                psin.moveTo(xr.min, 0);
+                psin.lineTo(xr.max, 0);
                 ctx.stroke();
             }
 
