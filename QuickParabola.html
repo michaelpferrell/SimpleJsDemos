@@ -56,13 +56,21 @@
                 lineTo(xin, yin) {
                     this.context.lineTo(this.logicalplane.lx2px(xin), this.logicalplane.ly2py(yin));
                 }
+
+                getxr() {
+                    return this.logicalplane.xr;
+                }
+
+                getyr() {
+                    return this.logicalplane.yr;
+                }
             }
 
             //Draw axes
             function DrawAxes(psin) {
                 const ctx = psin.context;
-                const xr = psin.logicalplane.xr;
-                const yr = psin.logicalplane.yr;
+                const xr = psin.getxr();
+                const yr = psin.getyr();
                 ctx.strokeStyle = 'black';
                 ctx.beginPath();
                 psin.moveTo(0, yr.min);
